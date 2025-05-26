@@ -5,7 +5,7 @@ import random
 df = pd.read_csv('distancias_labs.csv', index_col=0, delimiter=';')
 labs = list(df.columns)
 
-# Convertir a matriz numpy para acceso rápido
+# Convertir a matriz 
 dist_matrix = df.values
 
 def distancia_total(ruta, matriz):
@@ -13,7 +13,7 @@ def distancia_total(ruta, matriz):
     n = len(ruta)
     for i in range(n - 1):
         distancia += matriz[ruta[i], ruta[i+1]]
-    # Volver al inicio (opcional)
+    # Volver al inicio 
     distancia += matriz[ruta[-1], ruta[0]]
     return distancia
 
