@@ -22,7 +22,7 @@ def fitness(bitstring):
     else:
         return beneficio_total
 
-# Generar vecinos: voltear un bit
+# Generar vecinos
 def obtener_vecinos(bitstring):
     vecinos = []
     for i in range(len(bitstring)):
