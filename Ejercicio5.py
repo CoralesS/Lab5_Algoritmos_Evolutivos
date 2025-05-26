@@ -7,16 +7,12 @@ tesistas = df['TesistaID'].tolist()
 franjas = df.columns[1:].tolist()  # F1, F2, ..., F6
 num_salas = 6
 
-# Convertir disponibilidad a dict {TesistaID: [1/0,...]}
 disp = {row['TesistaID']: row[1:].tolist() for _, row in df.iterrows()}
 
-# Solución: dict {tesista: (sala, franja_index)}
 # Heurística inicial: asignar secuencial, buscando primer sala/franja libre y disponible
-
 def asignacion_inicial():
     asignacion = {}
-    # Estructura para saber uso por sala y franja
-    uso = [[None]*len(franjas) for _ in range(num_salas)]  # None o tesista
+    uso = [[None]*len(franjas) for _ in range(num_salas)]  
     
     for t in tesistas:
         franjas_disp = disp[t]
@@ -32,14 +28,11 @@ def asignacion_inicial():
                         break
             if asignado:
                 break
-        # Si no asignado, poner (-1, -1)
         if not asignado:
             asignacion[t] = (-1, -1)
     return asignacion, uso
 
 # Función para calcular métricas:
-# Huecos: franjas libres entre franjas ocupadas en una sala
-# Solapamientos: cantidad de tesistas asignados a la misma sala y franja (debería ser 0)
 def calcular_metricas(asignacion):
     # Construir matriz sala x franjas con lista de tesistas
     uso = [[[] for _ in franjas] for _ in range(num_salas)]
@@ -57,7 +50,7 @@ def calcular_metricas(asignacion):
                 solapamientos += len(uso[s][f_idx]) - 1
             if len(uso[s][f_idx]) > 0:
                 franjas_ocupadas.append(f_idx)
-        # Calcular huecos: franjas vacías entre primer y último ocupado
+        # Calcular huecos
         if franjas_ocupadas:
             primer = min(franjas_ocupadas)
             ultimo = max(franjas_ocupadas)
@@ -65,7 +58,6 @@ def calcular_metricas(asignacion):
                 if len(uso[s][f_idx]) == 0:
                     huecos += 1
             # Verificar horas continuas no exceden 4
-            # Contar bloques continuos >4
             max_continuas = 0
             count = 0
             for f_idx in range(primer, ultimo+1):
@@ -79,7 +71,7 @@ def calcular_metricas(asignacion):
                 huecos += (max_continuas - 4) * 10
     return solapamientos, huecos
 
-# Vecindad: mover 1 tesista a otra sala/franja disponible y libre
+# mover 1 tesista a otra sala/franja disponible y libre
 def obtener_vecinos(asignacion):
     vecinos = []
     for t in tesistas:
