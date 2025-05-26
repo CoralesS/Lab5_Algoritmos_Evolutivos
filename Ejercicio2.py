@@ -4,20 +4,19 @@ import random
 # Leer archivo CSV
 df = pd.read_csv('disponibilidad.csv', delimiter=';')
 
-# Convertimos la tabla de disponibilidad en diccionario: mentor -> slots disponibles
+# Convertimos la tabla de disponibilidad en diccionario
 disponibilidad = {}
-slots = df.columns[1:]  # ['Slot1', 'Slot2', ..., 'Slot10']
+slots = df.columns[1:]  
 
 for idx, row in df.iterrows():
     mentor = row['MentorID']
-    # slots donde mentor está disponible (valor 1)
+    # slots donde mentor está disponible
     disponibles = [slot for slot in slots if row[slot] == 1]
     disponibilidad[mentor] = disponibles
 
 mentores = list(disponibilidad.keys())
 
 def calcular_choques(asignacion):
-    # asignacion: dict mentor -> slot asignado
     # contar cuántos slots están asignados a más de un mentor
     slot_ocupados = {}
     choques = 0
