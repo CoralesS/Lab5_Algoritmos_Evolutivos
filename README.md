@@ -9,4 +9,4 @@ Ejercicios desarrollados del aboratorio realizado en la semana 5 del curso de **
 
 - 🎓 **Apellidos y Nombres**: CORALES SAMAME DILVER  
 - 🧾 **Curso**: Algoritmos Evolutivos  
-- 🧑‍🏫 **Docente**: Ing. [Nombre del docente]  
+- 🧑‍🏫 **Docente**: Ms. Johan Max A. López Heredia  
