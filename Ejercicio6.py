@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 
-# Leer el archivo CSV que tienes guardado con los datos
+# Leer el archivo CSV 
 df = pd.read_csv('preguntas.csv', sep=';')
 
 def fitness(solution, df):
@@ -17,7 +17,7 @@ def get_neighbors(solution):
     neighbors = []
     for i in range(len(solution)):
         neighbor = solution.copy()
-        neighbor[i] = 1 - neighbor[i]  # Voltear el bit i
+        neighbor[i] = 1 - neighbor[i]  
         neighbors.append(neighbor)
     return neighbors
 
